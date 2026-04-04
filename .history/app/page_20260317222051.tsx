@@ -147,7 +147,7 @@ export default function Page() {
   musicAudioRef.current = new Audio("/ambiente.mp3");
 
   if (openAudioRef.current) openAudioRef.current.volume = 0.6;
-  if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.14;
+  if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.18;
   if (revealAudioRef.current) revealAudioRef.current.volume = 0.7;
 
   if (musicAudioRef.current) {
@@ -178,19 +178,6 @@ export default function Page() {
   setShowNewChestPopup(true);
   setLastPopupDate(todayKey);
 }, [stage, elapsedDays, canOpenToday, lastPopupDate, todayKey]);
-
-useEffect(() => {
-  const music = musicAudioRef.current;
-  if (!music) return;
-
-  if (stage === "game" && musicOn) {
-    music.play().catch((err) => {
-      console.log("No se pudo reproducir la música ambiente:", err);
-    });
-  } else {
-    music.pause();
-  }
-}, [stage, musicOn]);
 
   async function unlockAudio() {
   if (audioUnlocked) return;

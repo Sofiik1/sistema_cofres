@@ -1,0 +1,206 @@
+.rewardCard {
+  position: relative;
+  width: min(900px, 100%);
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.35);
+  backdrop-filter: blur(12px);
+}
+
+.rewardCard-content {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 24px;
+  align-items: center;
+  padding: 28px;
+}
+
+.rewardCard-left {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rewardCard-chestName {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.rewardCard-rarityText {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1.05;
+}
+
+.rewardCard-rewardBlock {
+  margin-top: 4px;
+}
+
+.rewardCard-rewardTitle {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.rewardCard-description {
+  margin: 0;
+  color: rgba(255,255,255,0.86);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.rewardCard-footer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rewardCard-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+}
+
+.rewardCard-requestedFrom {
+  font-size: 18px;
+}
+
+.rewardCard-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rewardCard-image {
+  width: min(100%, 260px);
+  max-height: 260px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 32px rgba(0,0,0,0.35));
+}
+
+/* COMMON */
+.rewardCard-common {
+  background:
+    radial-gradient(circle at top right, rgba(255, 214, 102, 0.10), transparent 28%),
+    linear-gradient(135deg, rgba(72, 49, 17, 0.92), rgba(26, 22, 17, 0.96));
+}
+
+.rewardCard-common .rewardCard-chestName,
+.rewardCard-common .rewardCard-label {
+  color: #f3cf7d;
+}
+
+.rewardCard-common .rewardCard-rarityText,
+.rewardCard-common .rewardCard-rewardTitle,
+.rewardCard-common .rewardCard-requestedFrom {
+  color: #fff2c7;
+}
+
+/* RARE */
+.rewardCard-rare {
+  background:
+    radial-gradient(circle at top right, rgba(109, 195, 255, 0.16), transparent 28%),
+    linear-gradient(135deg, rgba(13, 44, 74, 0.94), rgba(9, 19, 35, 0.98));
+}
+
+.rewardCard-rare .rewardCard-chestName,
+.rewardCard-rare .rewardCard-label {
+  color: #8fdcff;
+}
+
+.rewardCard-rare .rewardCard-rarityText,
+.rewardCard-rare .rewardCard-rewardTitle,
+.rewardCard-rare .rewardCard-requestedFrom {
+  color: #dff7ff;
+}
+
+/* EPIC */
+.rewardCard-epic {
+  background:
+    radial-gradient(circle at top right, rgba(157, 101, 255, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(49, 22, 86, 0.95), rgba(20, 13, 38, 0.98));
+}
+
+.rewardCard-epic .rewardCard-chestName,
+.rewardCard-epic .rewardCard-label {
+  color: #d2b6ff;
+}
+
+.rewardCard-epic .rewardCard-rarityText,
+.rewardCard-epic .rewardCard-rewardTitle,
+.rewardCard-epic .rewardCard-requestedFrom {
+  color: #f1e5ff;
+}
+
+/* LEGENDARY */
+.rewardCard-legendary {
+  background:
+    radial-gradient(circle at top right, rgba(255, 214, 102, 0.18), transparent 24%),
+    radial-gradient(circle at 85% 20%, rgba(255,255,255,0.08), transparent 16%),
+    linear-gradient(135deg, rgba(87, 56, 9, 0.96), rgba(33, 22, 10, 0.99));
+}
+
+.rewardCard-legendary .rewardCard-chestName,
+.rewardCard-legendary .rewardCard-label {
+  color: #ffd976;
+}
+
+.rewardCard-legendary .rewardCard-rarityText,
+.rewardCard-legendary .rewardCard-rewardTitle,
+.rewardCard-legendary .rewardCard-requestedFrom {
+  color: #fff4cb;
+}
+
+/* FILLER */
+.rewardCard-filler {
+  background:
+    radial-gradient(circle at top right, rgba(114, 255, 180, 0.14), transparent 28%),
+    linear-gradient(135deg, rgba(18, 57, 43, 0.95), rgba(11, 24, 20, 0.98));
+}
+
+.rewardCard-filler .rewardCard-chestName,
+.rewardCard-filler .rewardCard-label {
+  color: #94ffd0;
+}
+
+.rewardCard-filler .rewardCard-rarityText,
+.rewardCard-filler .rewardCard-rewardTitle,
+.rewardCard-filler .rewardCard-requestedFrom {
+  color: #ddfff0;
+}
+
+@media (max-width: 760px) {
+  .rewardCard-content {
+    grid-template-columns: 1fr;
+  }
+
+  .rewardCard-right {
+    order: -1;
+  }
+
+  .rewardCard-image {
+    width: 180px;
+    max-height: 180px;
+  }
+}
+
+.rewardImageWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.rewardImage {
+  width: 180px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.3));
+}

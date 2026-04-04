@@ -1,0 +1,449 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(114, 73, 255, 0.2), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255, 197, 61, 0.18), transparent 25%),
+    linear-gradient(180deg, #0b1020 0%, #121935 100%);
+  color: #f7f8ff;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.shell {
+  position: relative;
+  z-index: 2;
+  width: min(1150px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0 60px;
+}
+
+.bgOrbs::before,
+.bgOrbs::after {
+  content: "";
+  position: fixed;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.28;
+}
+
+.bgOrbs::before {
+  top: -120px;
+  left: -80px;
+  background: #7e5eff;
+}
+
+.bgOrbs::after {
+  right: -120px;
+  bottom: -100px;
+  background: #ffc04d;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.35) 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 18%, rgba(255,255,255,0.28) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 72%, rgba(255,255,255,0.25) 0 1px, transparent 2px),
+    radial-gradient(circle at 35% 80%, rgba(255,255,255,0.2) 0 1px, transparent 2px),
+    radial-gradient(circle at 55% 48%, rgba(255,255,255,0.18) 0 1px, transparent 2px);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.centerCard {
+  width: min(720px, 100%);
+  margin: 40px auto 0;
+  padding: 34px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 203, 87, 0.12);
+  border: 1px solid rgba(255, 203, 87, 0.26);
+  color: #ffd66f;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+}
+
+h1,
+h2 {
+  margin: 0 0 12px;
+}
+
+.muted {
+  color: #c9cde4;
+  line-height: 1.6;
+}
+
+.bigger {
+  font-size: 18px;
+}
+
+.lead {
+  margin-top: 6px;
+  font-size: 24px;
+}
+
+.formBlock,
+.securityBox {
+  margin-top: 24px;
+  display: grid;
+  gap: 14px;
+}
+
+.input {
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10, 13, 28, 0.65);
+  color: white;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #98a0c5;
+}
+
+.centered {
+  text-align: center;
+}
+
+.primaryBtn {
+  border: none;
+  border-radius: 16px;
+  padding: 15px 18px;
+  font-weight: 800;
+  color: #181028;
+  background: linear-gradient(135deg, #ffd66f, #ffb52b);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 12px 28px rgba(255, 182, 43, 0.28);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+}
+
+.bigBtn {
+  margin-top: 10px;
+}
+
+.mathQuestion {
+  font-size: 30px;
+  font-weight: 900;
+  color: #fff0c2;
+}
+
+.introCard {
+  width: min(820px, 100%);
+  margin: 36px auto 0;
+  padding: 34px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transition: all 0.5s ease;
+}
+
+.introCard.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.introText {
+  margin: 22px auto 26px;
+  max-width: 650px;
+  color: #d9ddf5;
+  line-height: 1.8;
+}
+
+.topPanel {
+  padding: 22px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.statusGroup {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.statusItem {
+  min-width: 160px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.statusLabel {
+  display: block;
+  font-size: 12px;
+  color: #b7bdd9;
+  margin-bottom: 6px;
+}
+
+.rules {
+  padding: 18px 22px;
+  margin-bottom: 22px;
+  line-height: 1.7;
+}
+
+.warningText {
+  color: #ffd37c;
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 18px;
+}
+
+.chestCard {
+  position: relative;
+  border: none;
+  border-radius: 24px;
+  min-height: 220px;
+  padding: 16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.11);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+}
+
+.chestCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 209, 99, 0.45);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.34);
+}
+
+.chestCard.opened {
+  border-color: rgba(89, 255, 178, 0.35);
+}
+
+.chestGlow {
+  position: absolute;
+  inset: auto 50% 18px 50%;
+  width: 90px;
+  height: 24px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 200, 81, 0.45), transparent 70%);
+  filter: blur(12px);
+}
+
+.chest {
+  position: relative;
+  width: 110px;
+  height: 100px;
+  margin: 18px auto 22px;
+  transform-origin: center;
+  animation: idleFloat 2.8s ease-in-out infinite;
+}
+
+@keyframes idleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+.base {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 110px;
+  height: 60px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #9f5f14, #6f3d0e);
+  border: 3px solid #f5c45b;
+  box-shadow: inset 0 8px 0 rgba(255,255,255,0.08);
+}
+
+.lid {
+  position: absolute;
+  top: 8px;
+  left: 3px;
+  width: 104px;
+  height: 36px;
+  border-radius: 14px 14px 10px 10px;
+  background: linear-gradient(180deg, #b1701d, #874b11);
+  border: 3px solid #f5c45b;
+  transform-origin: bottom center;
+  transition: transform 0.55s ease;
+}
+
+.lock {
+  position: absolute;
+  top: 38px;
+  left: 47px;
+  width: 16px;
+  height: 24px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #ffe182, #d49e25);
+  z-index: 3;
+}
+
+.band {
+  position: absolute;
+  background: #f5c45b;
+  opacity: 0.95;
+}
+
+.band1 {
+  left: 22px;
+  top: 8px;
+  width: 8px;
+  height: 92px;
+}
+
+.band2 {
+  right: 22px;
+  top: 8px;
+  width: 8px;
+  height: 92px;
+}
+
+.chestOpened .lid {
+  transform: rotateX(65deg) translateY(-10px);
+}
+
+.chestMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.chestNumber {
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.chestState {
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.chestState.closed {
+  background: rgba(255, 211, 112, 0.12);
+  color: #ffd776;
+  border: 1px solid rgba(255, 211, 112, 0.24);
+}
+
+.chestState.done {
+  background: rgba(90, 255, 170, 0.12);
+  color: #83ffbf;
+  border: 1px solid rgba(90, 255, 170, 0.26);
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 18, 0.72);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 40;
+}
+
+.modal {
+  width: min(560px, 100%);
+  padding: 28px;
+  text-align: center;
+  animation: popIn 0.28s ease;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.rewardText {
+  margin: 10px 0 22px;
+  line-height: 1.8;
+  color: #eef1ff;
+}
+
+.shake {
+  animation: shake 0.36s linear;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+@media (max-width: 760px) {
+  .topPanel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .statusGroup {
+    width: 100%;
+  }
+
+  .statusItem {
+    flex: 1;
+  }
+
+  .centerCard,
+  .introCard {
+    padding: 24px;
+  }
+}

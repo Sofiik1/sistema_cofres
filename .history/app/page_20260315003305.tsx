@@ -65,10 +65,7 @@ export default function Page() {
   const [countdown, setCountdown] = useState(getTimeUntilNextDay());
   const [showNewChestPopup, setShowNewChestPopup] = useState(false);
   const [lastPopupDate, setLastPopupDate] = useState<string | null>(null);
-  const musicAudioRef = useRef<HTMLAudioElement | null>(null);
-  const lastHoverPlayedAtRef = useRef(0);
-  const [audioUnlocked, setAudioUnlocked] = useState(false);
-  const [musicOn, setMusicOn] = useState(true);
+
   const openAudioRef = useRef<HTMLAudioElement | null>(null);
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
   const revealAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -141,81 +138,20 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-  openAudioRef.current = new Audio("/opening.mp3");
-  hoverAudioRef.current = new Audio("/hover.mp3");
-  revealAudioRef.current = new Audio("/recompensa.mp3");
-  musicAudioRef.current = new Audio("/ambiente.mp3");
+    openAudioRef.current = new Audio("/sounds/open.mp3");
+    hoverAudioRef.current = new Audio("/sounds/hover.mp3");
+    revealAudioRef.current = new Audio("/sounds/reveal.mp3");
 
-  if (openAudioRef.current) openAudioRef.current.volume = 0.6;
-  if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.14;
-  if (revealAudioRef.current) revealAudioRef.current.volume = 0.7;
-
-  if (musicAudioRef.current) {
-    musicAudioRef.current.volume = 0.28;
-    musicAudioRef.current.loop = true;
-  }
-
-  return () => {
-    openAudioRef.current?.pause();
-    hoverAudioRef.current?.pause();
-    revealAudioRef.current?.pause();
-    musicAudioRef.current?.pause();
-  };
-}, []);
+    if (openAudioRef.current) openAudioRef.current.volume = 0.6;
+    if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.25;
+    if (revealAudioRef.current) revealAudioRef.current.volume = 0.7;
+  }, []);
 
   useEffect(() => {
   if (lastPopupDate) {
     localStorage.setItem("birthday_last_popup_date", lastPopupDate);
   }
 }, [lastPopupDate]);
-
-  useEffect(() => {
-  if (stage !== "game") return;
-  if (elapsedDays < 0) return;
-  if (!canOpenToday) return;
-  if (lastPopupDate === todayKey) return;
-
-  setShowNewChestPopup(true);
-  setLastPopupDate(todayKey);
-}, [stage, elapsedDays, canOpenToday, lastPopupDate, todayKey]);
-
-useEffect(() => {
-  const music = musicAudioRef.current;
-  if (!music) return;
-
-  if (stage === "game" && musicOn) {
-    music.play().catch((err) => {
-      console.log("No se pudo reproducir la música ambiente:", err);
-    });
-  } else {
-    music.pause();
-  }
-}, [stage, musicOn]);
-
-  async function unlockAudio() {
-  if (audioUnlocked) return;
-
-  try {
-    const audios = [
-      openAudioRef.current,
-      hoverAudioRef.current,
-      revealAudioRef.current,
-      musicAudioRef.current,
-    ].filter(Boolean) as HTMLAudioElement[];
-
-    for (const audio of audios) {
-      audio.muted = true;
-      await audio.play().catch(() => {});
-      audio.pause();
-      audio.currentTime = 0;
-      audio.muted = false;
-    }
-
-    setAudioUnlocked(true);
-  } catch {
-    // no-op
-  }
-}
 
   function playHoverSound() {
     const audio = hoverAudioRef.current;
@@ -261,18 +197,9 @@ useEffect(() => {
     setStage("intro");
   }
 
-  async function openGame() {
-  await unlockAudio();
-  setStage("game");
-
-  const music = musicAudioRef.current;
-  if (music && musicOn) {
-    music.currentTime = 0;
-    music.play().catch((err) => {
-      console.log("No se pudo reproducir la música ambiente:", err);
-    });
+  function openGame() {
+    setStage("game");
   }
-}
 
   function handleOpenChest(chest: ChestItem) {
     if (openedChests.includes(chest.id)) {
@@ -425,13 +352,7 @@ useEffect(() => {
                 </div>
               </div>
             </section>
-                      <NewChestPopup
-                    isVisible={showNewChestPopup}
-                    onClose={() => setShowNewChestPopup(false)}
-                    playerName={name || "Jugador"}
-                    soundSrc="/new.mp3"
-                    autoHideMs={5000}
-                  />
+
             <section className="fantasyMessage card">
               {canOpenToday ? (
                 <p>

@@ -242,10 +242,6 @@ h2 {
   gap: 18px;
 }
 
-/* ================================= */
-/* CHEST CARD BASE */
-/* ================================= */
-
 .chestCard {
   position: relative;
   border: none;
@@ -254,58 +250,21 @@ h2 {
   padding: 16px;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-  border: 1px solid rgba(154, 100, 255, 0.42);
+  border: 1px solid rgba(255,255,255,0.11);
   cursor: pointer;
   overflow: hidden;
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  box-shadow:
-    0 16px 40px rgba(0,0,0,0.28),
-    0 0 0 1px rgba(154, 100, 255, 0.08);
-  isolation: isolate;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.28);
 }
 
 .chestCard:hover {
   transform: translateY(-6px);
-  border-color: rgba(182, 128, 255, 0.8);
-  box-shadow:
-    0 22px 48px rgba(0,0,0,0.34),
-    0 0 18px rgba(154, 100, 255, 0.22);
+  border-color: rgba(255, 209, 99, 0.45);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.34);
 }
 
 .chestCard.opened {
-  border-color: rgba(182, 128, 255, 0.85);
-}
-
-.chestCard::before {
-  content: "";
-  position: absolute;
-  inset: -30%;
-  background: conic-gradient(
-    from 0deg,
-    transparent,
-    rgba(255,255,255,0.06),
-    transparent,
-    rgba(154, 100, 255, 0.08),
-    transparent
-  );
-  animation: rotateMist 8s linear infinite;
-  opacity: 0.55;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.chestCard > * {
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes rotateMist {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  border-color: rgba(89, 255, 178, 0.35);
 }
 
 .chestGlow {
@@ -315,9 +274,18 @@ h2 {
   height: 24px;
   transform: translateX(-50%);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(132, 12, 162, 0.45), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 200, 81, 0.45), transparent 70%);
   filter: blur(12px);
 }
+
+
+
+@keyframes idleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+
 
 .chestMeta {
   display: flex;
@@ -329,8 +297,6 @@ h2 {
 .chestNumber {
   font-weight: 900;
   font-size: 18px;
-  color: #fff4cb;
-  text-align: center;
 }
 
 .chestState {
@@ -350,10 +316,6 @@ h2 {
   color: #83ffbf;
   border: 1px solid rgba(90, 255, 170, 0.26);
 }
-
-/* ================================= */
-/* MODAL */
-/* ================================= */
 
 .modalOverlay {
   position: fixed;
@@ -389,18 +351,6 @@ h2 {
   color: #eef1ff;
 }
 
-.modal-common,
-.modal-rare,
-.modal-epic,
-.modal-legendary {
-  border-color: rgba(163, 112, 255, 0.34);
-  box-shadow: 0 20px 60px rgba(100, 55, 190, 0.28);
-}
-
-/* ================================= */
-/* STATES / MICRO */
-/* ================================= */
-
 .shake {
   animation: shake 0.36s linear;
 }
@@ -426,6 +376,223 @@ h2 {
   filter: blur(10px);
 }
 
+.rarityAura {
+  position: absolute;
+  inset: 10px;
+  border-radius: 24px;
+  opacity: 0.6;
+  filter: blur(16px);
+  animation: auraPulse 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.rarity-common .rarityAura {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 206, 92, 0.14), transparent 65%);
+}
+
+.rarity-epic .rarityAura {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(153, 94, 255, 0.22), transparent 65%);
+}
+
+.rarity-legendary .rarityAura {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 205, 91, 0.22), transparent 30%),
+    radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.08), transparent 30%),
+    radial-gradient(circle at 70% 70%, rgba(255, 121, 198, 0.12), transparent 35%);
+}
+
+@keyframes auraPulse {
+  0%, 100% {
+    transform: scale(0.98);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.82;
+  }
+}
+
+.sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sparkles span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 12px rgba(255,255,255,0.7);
+  animation: sparkleFloat 2.8s infinite ease-in-out;
+}
+
+.sparkles span:nth-child(1) {
+  top: 22%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.sparkles span:nth-child(2) {
+  top: 18%;
+  right: 18%;
+  animation-delay: 0.7s;
+}
+
+.sparkles span:nth-child(3) {
+  bottom: 28%;
+  left: 30%;
+  animation-delay: 1.3s;
+}
+
+@keyframes sparkleFloat {
+  0%, 100% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 1;
+  }
+}
+
+.rarity-common .chestGlow {
+  background: radial-gradient(circle, rgba(255, 201, 92, 0.38), transparent 70%);
+}
+
+.rarity-epic .chestGlow {
+  background: radial-gradient(circle, rgba(154, 100, 255, 0.48), transparent 70%);
+}
+
+.rarity-legendary .chestGlow {
+  background: radial-gradient(circle, rgba(255, 214, 91, 0.55), transparent 70%);
+}
+
+.rarity-common,
+.rarity-common {
+  border-color: #f5c45b;
+}
+
+.rarity-epic,
+.rarity-epic{
+  border-color: #b18cff;
+  box-shadow: 0 0 22px rgba(142, 92, 255, 0.18);
+}
+
+.rarity-epic,
+.rarity-epic {
+  background: linear-gradient(180deg, #d8c6ff, #8d5cff);
+}
+
+.rarity-legendary,
+.rarity-legendary {
+  border-color: #ffd86f;
+  box-shadow:
+    0 0 28px rgba(255, 213, 102, 0.2),
+    inset 0 0 18px rgba(255,255,255,0.06);
+}
+
+.rarity-legendary,
+.rarity-legendary {
+  background: linear-gradient(180deg, #fff0a8, #ffbf2f);
+}
+
+.rarityBadge {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.rarityBadge-common {
+  color: #ffd778;
+  background: rgba(255, 211, 112, 0.12);
+  border: 1px solid rgba(255, 211, 112, 0.26);
+}
+
+.rarityBadge-epic {
+  color: #caaeff;
+  background: rgba(162, 103, 255, 0.12);
+  border: 1px solid rgba(162, 103, 255, 0.28);
+}
+
+.rarityBadge-legendary {
+  color: #ffe58b;
+  background: rgba(255, 213, 91, 0.14);
+  border: 1px solid rgba(255, 213, 91, 0.32);
+  box-shadow: 0 0 16px rgba(255, 213, 91, 0.14);
+}
+
+.chestCard {
+  isolation: isolate;
+}
+
+.chestCard::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(255,255,255,0.06),
+    transparent,
+    rgba(255,216,111,0.08),
+    transparent
+  );
+  animation: rotateMist 8s linear infinite;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.chestCard > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes rotateMist {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.modal-common {
+  border-color: rgba(255, 210, 112, 0.24);
+}
+
+.modal-epic {
+  border-color: rgba(163, 112, 255, 0.34);
+  box-shadow: 0 20px 60px rgba(100, 55, 190, 0.28);
+}
+
+.modal-legendary {
+  border-color: rgba(255, 217, 102, 0.36);
+  box-shadow:
+    0 20px 60px rgba(255, 191, 43, 0.2),
+    0 0 40px rgba(255, 214, 102, 0.12);
+}
+
+.rarity-legendary {
+  animation: legendaryBreath 2.2s ease-in-out infinite;
+}
+
+@keyframes legendaryBreath {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20% { transform: translateX(-7px); }
@@ -434,9 +601,27 @@ h2 {
   80% { transform: translateX(5px); }
 }
 
-/* ================================= */
-/* FANTASY HERO */
-/* ================================= */
+@media (max-width: 760px) {
+  .topPanel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .statusGroup {
+    width: 100%;
+  }
+
+  .statusItem {
+    flex: 1;
+  }
+
+  .centerCard,
+  .introCard {
+    padding: 24px;
+  }
+}
+
+/* ##################################################### */
 
 .fantasyHero {
   display: flex;
@@ -588,10 +773,6 @@ h2 {
   line-height: 1.7;
 }
 
-/* ================================= */
-/* CHEST SECTION */
-/* ================================= */
-
 .chestSection {
   position: relative;
 }
@@ -619,27 +800,16 @@ h2 {
   background:
     radial-gradient(circle at 50% 18%, rgba(255, 214, 102, 0.08), transparent 18%),
     linear-gradient(180deg, rgba(28, 34, 67, 0.88), rgba(14, 18, 37, 0.94));
-  border: 1px solid rgba(154, 100, 255, 0.42);
+  border: 1px solid rgba(255,255,255,0.1);
   box-shadow:
     0 22px 45px rgba(0,0,0,0.34),
-    inset 0 0 20px rgba(255,255,255,0.02),
-    0 0 0 1px rgba(154, 100, 255, 0.08);
+    inset 0 0 20px rgba(255,255,255,0.02);
   overflow: hidden;
   transform: translateY(0);
-  margin-top: 0;
-  transform-origin: center;
 }
 
 .fantasyChestCard:hover {
   transform: translateY(-10px) scale(1.02);
-  border-color: rgba(182, 128, 255, 0.8);
-  box-shadow:
-    0 22px 48px rgba(0,0,0,0.34),
-    0 0 18px rgba(154, 100, 255, 0.22);
-}
-
-.fantasyChestCard.opened {
-  border-color: rgba(182, 128, 255, 0.85);
 }
 
 .fantasyChestCard::before {
@@ -652,7 +822,7 @@ h2 {
       transparent,
       rgba(255,255,255,0.05),
       transparent,
-      rgba(154, 100, 255, 0.08),
+      rgba(255,216,111,0.08),
       transparent
     );
   animation: chestMist 10s linear infinite;
@@ -708,31 +878,19 @@ h2 {
   animation: auraPulse 3.4s ease-in-out infinite;
 }
 
-/* aura neutral mientras están cerrados */
-.rarity-common .rarityAura,
-.rarity-rare .rarityAura,
-.rarity-epic .rarityAura,
+.rarity-common .rarityAura {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 208, 97, 0.12), transparent 65%);
+}
+
+.rarity-epic .rarityAura {
+  background: radial-gradient(circle at 50% 50%, rgba(141, 92, 255, 0.2), transparent 65%);
+}
+
 .rarity-legendary .rarityAura {
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06), transparent 65%);
-}
-
-/* aura visible solo al abrir */
-.fantasyChestCard.opened.rarity-common .rarityAura {
-  background: radial-gradient(circle at 50% 50%, rgba(255, 208, 97, 0.10), transparent 65%);
-}
-
-.fantasyChestCard.opened.rarity-rare .rarityAura {
-  background: radial-gradient(circle at 50% 50%, rgba(110, 200, 255, 0.12), transparent 65%);
-}
-
-.fantasyChestCard.opened.rarity-epic .rarityAura {
-  background: radial-gradient(circle at 50% 50%, rgba(141, 92, 255, 0.16), transparent 65%);
-}
-
-.fantasyChestCard.opened.rarity-legendary .rarityAura {
   background:
-    radial-gradient(circle at 50% 50%, rgba(255, 214, 102, 0.18), transparent 35%),
-    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.06), transparent 30%);
+    radial-gradient(circle at 50% 50%, rgba(255, 214, 102, 0.24), transparent 30%),
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.07), transparent 30%),
+    radial-gradient(circle at 70% 70%, rgba(255, 120, 205, 0.12), transparent 35%);
 }
 
 @keyframes auraPulse {
@@ -778,78 +936,64 @@ h2 {
   }
 }
 
-/* ================================= */
-/* CHEST IMAGE SYSTEM (PNG COFRES) */
-/* ================================= */
-
-.chestImage {
-  width: 78px;
-  height: auto;
-  display: block;
-  margin: 40px auto 18px;
-  object-fit: contain;
-  filter: drop-shadow(0 12px 18px rgba(0,0,0,0.35));
-  animation: chestFloat 3s ease-in-out infinite;
-  transition:
-    transform 0.25s ease,
-    filter 0.25s ease;
+.fantasyChestCard{
+  margin-top: 48px;
+  transform-origin: center;
 }
 
-@keyframes chestFloat {
-  0%,100% {
-    transform: translateY(0px);
+.rarity-common,
+.rarity-common {
+  border-color: #f3c45b;
+}
+
+.rarity-epic,
+.rarity-epic {
+  border-color: #b18cff;
+  box-shadow: 0 0 24px rgba(141, 92, 255, 0.16);
+}
+
+.rarity-epic .band,
+.rarity-epic .lock {
+  background: linear-gradient(180deg, #e1d0ff, #8c5dff);
+}
+
+.rarity-legendary,
+.rarity-legendary {
+  border-color: #ffdf7d;
+  box-shadow:
+    0 0 28px rgba(255, 213, 102, 0.2),
+    inset 0 0 16px rgba(255,255,255,0.05);
+}
+
+.rarity-legendary,
+.rarity-legendary {
+  background: linear-gradient(180deg, #fff2ab, #ffc42f);
+}
+
+.rarity-legendary {
+  animation: legendaryBreath 2.2s ease-in-out infinite;
+}
+
+@keyframes legendaryBreath {
+  0%, 100% {
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
   }
 }
 
-.fantasyChestCard:hover .chestImage {
-  transform: scale(1.08) translateY(-4px);
-  filter: drop-shadow(0 18px 30px rgba(0,0,0,0.45));
+.chestMeta {
+  margin-top: 14px;
+  position: relative;
+  z-index: 1;
 }
 
-.chestImageOpened {
-  transform: scale(1.05);
-  animation: none;
+.chestNumber {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff4cb;
 }
-
-/* mismas sombras mientras están cerrados */
-.rarity-common .chestImage,
-.rarity-rare .chestImage,
-.rarity-epic .chestImage,
-.rarity-legendary .chestImage {
-  filter: drop-shadow(0 12px 18px rgba(0,0,0,0.35));
-}
-
-/* glow recién al abrir */
-.fantasyChestCard.opened.rarity-common .chestImage {
-  filter:
-    drop-shadow(0 12px 18px rgba(0,0,0,0.35))
-    drop-shadow(0 0 14px rgba(255,200,100,0.18));
-}
-
-.fantasyChestCard.opened.rarity-rare .chestImage {
-  filter:
-    drop-shadow(0 12px 18px rgba(0,0,0,0.35))
-    drop-shadow(0 0 16px rgba(120,190,255,0.22));
-}
-
-.fantasyChestCard.opened.rarity-epic .chestImage {
-  filter:
-    drop-shadow(0 12px 18px rgba(0,0,0,0.35))
-    drop-shadow(0 0 18px rgba(140,90,255,0.30));
-}
-
-.fantasyChestCard.opened.rarity-legendary .chestImage {
-  filter:
-    drop-shadow(0 12px 18px rgba(0,0,0,0.40))
-    drop-shadow(0 0 20px rgba(255,235,150,0.28));
-}
-
-/* ================================= */
-/* BADGES */
-/* ================================= */
 
 .rarityBadge {
   font-size: 11px;
@@ -866,12 +1010,6 @@ h2 {
   border: 1px solid rgba(255, 211, 112, 0.26);
 }
 
-.rarityBadge-rare {
-  color: #b8e9ff;
-  background: rgba(120, 190, 255, 0.12);
-  border: 1px solid rgba(120, 190, 255, 0.26);
-}
-
 .rarityBadge-epic {
   color: #d6bcff;
   background: rgba(162, 103, 255, 0.12);
@@ -885,9 +1023,33 @@ h2 {
   box-shadow: 0 0 16px rgba(255, 213, 91, 0.14);
 }
 
-/* ================================= */
-/* RESPONSIVE */
-/* ================================= */
+.chestState.closed {
+  color: #e4bf68;
+  background: rgba(255, 214, 111, 0.1);
+  border: 1px solid rgba(255, 214, 111, 0.22);
+}
+
+.chestState.done {
+  color: #93ffd1;
+  background: rgba(90, 255, 170, 0.12);
+  border: 1px solid rgba(90, 255, 170, 0.26);
+}
+
+.modal-common {
+  border-color: rgba(255, 210, 112, 0.24);
+}
+
+.modal-epic {
+  border-color: rgba(163, 112, 255, 0.34);
+  box-shadow: 0 20px 60px rgba(100, 55, 190, 0.28);
+}
+
+.modal-legendary {
+  border-color: rgba(255, 217, 102, 0.36);
+  box-shadow:
+    0 20px 60px rgba(255, 191, 43, 0.2),
+    0 0 40px rgba(255, 214, 102, 0.12);
+}
 
 @media (max-width: 900px) {
   .fantasyHero {
@@ -906,26 +1068,6 @@ h2 {
 
   .heroLeft {
     align-items: flex-start;
-  }
-}
-
-@media (max-width: 760px) {
-  .topPanel {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .statusGroup {
-    width: 100%;
-  }
-
-  .statusItem {
-    flex: 1;
-  }
-
-  .centerCard,
-  .introCard {
-    padding: 24px;
   }
 }
 

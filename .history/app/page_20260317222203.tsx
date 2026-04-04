@@ -147,7 +147,7 @@ export default function Page() {
   musicAudioRef.current = new Audio("/ambiente.mp3");
 
   if (openAudioRef.current) openAudioRef.current.volume = 0.6;
-  if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.14;
+  if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.18;
   if (revealAudioRef.current) revealAudioRef.current.volume = 0.7;
 
   if (musicAudioRef.current) {

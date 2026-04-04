@@ -1,0 +1,312 @@
+.card {
+  width: min(780px, calc(100vw - 40px));
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.48),
+    0 0 0 2px rgba(255,255,255,0.04);
+}
+
+.frame {
+  padding: 28px 30px 30px;
+}
+
+/* HEADER */
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.chestName {
+  margin: 0 0 10px;
+  font-size: clamp(24px, 2.8vw, 38px);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.badge {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.rarityText {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* BODY */
+
+.body {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rewardTitle {
+  margin: 0;
+  font-size: clamp(24px, 2.4vw, 38px);
+  line-height: 1.02;
+  font-weight: 900;
+}
+
+.description {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.88);
+}
+
+.claimBox {
+  margin-top: 8px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.claimLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.78;
+}
+
+.claimFrom {
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePanel {
+  width: 80%;
+  min-height: 300px;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px;
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.imagePanel::before {
+  content: "";
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(circle, rgba(255,255,255,0.09), transparent 50%);
+}
+
+.rewardImage {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 280px);
+  max-height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 28px rgba(0,0,0,0.35));
+}
+
+/* COMMON */
+
+.common {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 208, 97, 0.14), transparent 30%),
+    linear-gradient(135deg, #3a2915 0%, #21170f 100%);
+  border: 2px solid rgba(255, 208, 97, 0.28);
+}
+
+.common .chestName,
+.common .claimLabel {
+  color: #ffd98c;
+}
+
+.common .badge {
+  color: #ffe7b0;
+  background: rgba(255, 208, 97, 0.14);
+  border: 1px solid rgba(255, 208, 97, 0.24);
+}
+
+.common .rarityText,
+.common .rewardTitle,
+.common .claimFrom {
+  color: #fff1cb;
+}
+
+.common .claimBox,
+.common .imagePanel {
+  background: rgba(255, 208, 97, 0.05);
+}
+
+/* RARE */
+
+.rare {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(94, 175, 255, 0.16), transparent 30%),
+    linear-gradient(135deg, #152948 0%, #101828 100%);
+  border: 2px solid rgba(94, 175, 255, 0.30);
+}
+
+.rare .chestName,
+.rare .claimLabel {
+  color: #9fd7ff;
+}
+
+.rare .badge {
+  color: #d9f2ff;
+  background: rgba(94, 175, 255, 0.12);
+  border: 1px solid rgba(94, 175, 255, 0.24);
+}
+
+.rare .rarityText,
+.rare .rewardTitle,
+.rare .claimFrom {
+  color: #eef8ff;
+}
+
+.rare .claimBox,
+.rare .imagePanel {
+  background: rgba(94, 175, 255, 0.05);
+}
+
+/* EPIC */
+
+.epic {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(157, 101, 255, 0.18), transparent 30%),
+    linear-gradient(135deg, #2a1545 0%, #171124 100%);
+  border: 2px solid rgba(157, 101, 255, 0.34);
+}
+
+.epic .chestName,
+.epic .claimLabel {
+  color: #d1b6ff;
+}
+
+.epic .badge {
+  color: #f1e7ff;
+  background: rgba(157, 101, 255, 0.14);
+  border: 1px solid rgba(157, 101, 255, 0.24);
+}
+
+.epic .rarityText,
+.epic .rewardTitle,
+.epic .claimFrom {
+  color: #f5ebff;
+}
+
+.epic .claimBox,
+.epic .imagePanel {
+  background: rgba(157, 101, 255, 0.06);
+}
+
+/* LEGENDARY */
+
+.legendary {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 215, 120, 0.18), transparent 30%),
+    linear-gradient(135deg, #47300c 0%, #21170f 100%);
+  border: 2px solid rgba(255, 215, 120, 0.34);
+}
+
+.legendary .chestName,
+.legendary .claimLabel {
+  color: #ffe198;
+}
+
+.legendary .badge {
+  color: #fff2c8;
+  background: rgba(255, 215, 120, 0.14);
+  border: 1px solid rgba(255, 215, 120, 0.26);
+}
+
+.legendary .rarityText,
+.legendary .rewardTitle,
+.legendary .claimFrom {
+  color: #fff4d9;
+}
+
+.legendary .claimBox,
+.legendary .imagePanel {
+  background: rgba(255, 215, 120, 0.05);
+}
+
+/* FILLER */
+
+.filler {
+  background:
+    radial-gradient(circle at 20% 15%, rgba(98, 255, 182, 0.14), transparent 30%),
+    linear-gradient(135deg, #143328 0%, #101b18 100%);
+  border: 2px solid rgba(98, 255, 182, 0.24);
+}
+
+.filler .chestName,
+.filler .claimLabel {
+  color: #9dffd5;
+}
+
+.filler .badge {
+  color: #e4fff1;
+  background: rgba(98, 255, 182, 0.12);
+  border: 1px solid rgba(98, 255, 182, 0.22);
+}
+
+.filler .rarityText,
+.filler .rewardTitle,
+.filler .claimFrom {
+  color: #ebfff5;
+}
+
+.filler .claimBox,
+.filler .imagePanel {
+  background: rgba(98, 255, 182, 0.05);
+}
+
+@media (max-width: 900px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .right {
+    order: -1;
+  }
+
+  .imagePanel {
+    min-height: 260px;
+  }
+
+  .rewardImage {
+    width: min(100%, 220px);
+    max-height: 240px;
+  }
+
+  .claimFrom {
+    font-size: 26px;
+  }
+}

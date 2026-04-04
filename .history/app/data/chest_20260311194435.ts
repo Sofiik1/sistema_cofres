@@ -1,0 +1,236 @@
+import type { ChestItem } from "../types/chest";
+
+export const CHESTS: ChestItem[] = [
+  {
+    id: 1,
+    chestName: "Cofre de la Sabiduría",
+    rarity: "legendary",
+    rewardTitle: "Curso de Marketing en UCEMA",
+    description:
+      "Un regalo pensado para que sigas aprendiendo, sumando ideas nuevas y metiéndole todavía más al mundo del marketing.",
+    closedImageSrc: "/comun_c.png",
+    openedImageSrc: "/comun_a.png",
+    rewardImageSrc: "/study.png",
+    claimedFrom: "Sofi",
+  },
+  {
+      id: 2,
+      chestName: "Cofre del Descanso",
+      rarity: "legendary",
+      rewardTitle: "Almohada cilíndrica",
+      description: "Porque descansar bien también es parte del progreso. Este cofre viene con una mejora seria para tus noches.",
+      closedImageSrc: "/raro_c.png",
+      openedImageSrc: "/raro_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/sueño.png"
+  },
+  {
+      id: 3,
+      chestName: "Cofre Recargado",
+      rarity: "filler",
+      rewardTitle: "Maple de huevo",
+      description: "Combustible oficial para mantener las ganancias del gym y seguir en modo bestia.",
+      closedImageSrc: "/epic_c.png",
+      openedImageSrc: "/epic_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/gym_bro.png"
+  },
+  {
+      id: 4,
+      chestName: "Cofre del Antojo",
+      rarity: "filler",
+      rewardTitle: "Cupón Peya",
+      description: "Porque hay días en los que cocinar no entra en el plan y pedir algo rico es la mejor decisión posible.",
+      closedImageSrc: "/leg_c.png",
+      openedImageSrc: "/leg_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/peya.png"
+  },
+  {
+      id: 5,
+      chestName: "Cofre de Cristal",
+      rarity: "filler",
+      rewardTitle: "Mascarillas",
+      description: "Con estas mascarillas relajate, cuidate y volve a tener tu piel de cristal.",
+      closedImageSrc: "/comun_c.png",
+      openedImageSrc: "/comun_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/skin.png"
+  },
+  {
+      id: 6,
+      chestName: "Cofre del Entrenamiento",
+      rarity: "common",
+      rewardTitle: "Remera para entrenar",
+      description: "Una nueva compañera para tus sesiones de gym. Cómoda, útil y lista para sumar kilómetros.",
+      closedImageSrc: "/leg_c.png",
+      openedImageSrc: "/leg_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/gym_bro.png"
+  },
+  {
+      id: 7,
+      chestName: "Cofre del Post Entreno",
+      rarity: "common",
+      rewardTitle: "Toalla",
+      description: "Para que ese cuerpito esta bien seco. Simple, útil e indispensable. De esas cosas que siempre vienen bien tener a mano.",
+      closedImageSrc: "/comun_c.png",
+      openedImageSrc: "/comun_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/skin.png"
+  },
+  {
+      id: 8,
+      chestName: "Cofre de la felicidad",
+      rarity: "common",
+      rewardTitle: "Juguete para el zarkito",
+      description: "Este cofre no es solo para vos. También hay recompensa para tu compañero de cuatro patas, por que cuando el es feliz vos también lo sos.",
+      closedImageSrc: "/comun_c.png",
+      openedImageSrc: "/comun_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/zarko.jpeg"
+  },
+  {
+      id: 9,
+      chestName: "Cofre del Camino",
+      rarity: "common",
+      rewardTitle: "Pantufla",
+      description: "Modo casa activado. Ideal para bajar un cambio y estar cómodo como corresponde.",
+      closedImageSrc: "/epic_c.png",
+      openedImageSrc: "/epic_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/sueño.png"
+  },
+  {
+      id: 10,
+      chestName: "Cofre del Rey",
+      rarity: "rare",
+      rewardTitle: "Vincha para dormir",
+      description: "Una mejora curiosa pero estratégica para dormir mejor y levantar con más energía.",
+      closedImageSrc: "/raro_c.png",
+      openedImageSrc: "/raro_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/sueño.png"
+  },
+  {
+      id: 11,
+      chestName: "Cofre de la Calma",
+      rarity: "common",
+      rewardTitle: "Juguete anti estrés",
+      description: "Pequeño, simple y efectivo. Para esos momentos donde hace falta descargar un poco.",
+      closedImageSrc: "/comun_c.png",
+      openedImageSrc: "/comun_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/skin.png"
+  },
+  {
+      id: 12,
+      chestName: "Cofre de la Guarida",
+      rarity: "common",
+      rewardTitle: "Aromatizador",
+      description: "Porque un buen ambiente también cambia el mood. Tu guarida merece oler bien.",
+      closedImageSrc: "/leg_c.png",
+      openedImageSrc: "/leg_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/skin.png"
+  },
+  {
+      id: 13,
+      chestName: "Cofre de la Batalla",
+      rarity: "common",
+      rewardTitle: "Otra remera de gym",
+      description: "Sí, otra. Porque cuando algo sirve, se repite. Y porque una sola claramente no alcanza.",
+      closedImageSrc: "/raro_c.png",
+      openedImageSrc: "/raro_a.png",
+      claimedFrom: "Papa",
+      rewardImageSrc: "/gym_bro.png"
+  },
+  {
+      id: 14,
+      chestName: "Cofre de la Fortuna",
+      rarity: "epic",
+      rewardTitle: "Billetera",
+      description: "Un clásico que siempre sirve. Para llevar lo importante un poco más ordenado.",
+      closedImageSrc: "/comun_c.png",
+      openedImageSrc: "/comun_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/money.png"
+  },
+  {
+      id: 15,
+      chestName: "Cofre de la Armadura",
+      rarity: "epic",
+      rewardTitle: "Cinto",
+      description: "Para que puedas seguir tirando facha y conquistando muchachas.",
+      closedImageSrc: "/epic_c.png",
+      openedImageSrc: "/epic_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/cool.png"
+  },
+  {
+      id: 16,
+      chestName: "Cofre de la Amistad",
+      rarity: "epic",
+      rewardTitle: "Llavero",
+      description: "Para que el zarkito te acompañe a todos lados.",
+      closedImageSrc: "/raro_c.png",
+      openedImageSrc: "/raro_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/zarko.png"
+  },
+  {
+      id: 17,
+      chestName: "Cofre del Viajero",
+      rarity: "epic",
+      rewardTitle: "Slingbag",
+      description: "Práctica, cómoda y lista para acompañarte en cualquier salida.",
+      closedImageSrc: "/epic_c.png",
+      openedImageSrc: "/epic_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/cool.png"
+  },
+  {
+      id: 18,
+      chestName: "Cofre del Invierno",
+      rarity: "rare",
+      rewardTitle: "Calentador de cama",
+      description: "Para que meterse en la cama deje de ser una prueba de valentía durante el frío.",
+      closedImageSrc: "/comun_c.png",
+      openedImageSrc: "/comun_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/sueño.png"
+  },
+  {
+      id: 19,
+      chestName: "Cofre del Estratega",
+      rarity: "rare",
+      rewardTitle: "Libro de marketing",
+      description: "Un regalo para seguir sumando ideas, herramientas y nuevas formas de mirar las cosas.",
+      closedImageSrc: "/raro_c.png",
+      openedImageSrc: "/raro_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/study.png"
+  },
+  {
+      id: 20,
+      chestName: "Cofre del Reluciente",
+      rarity: "rare",
+      rewardTitle: "Limpieza Facial",
+      description: "Porque esa carita necesita que le saquen lustre.",
+      closedImageSrc: "/leg_c.png",
+      openedImageSrc: "/leg_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/skin.png"
+  },
+    {
+      id: 21,
+      chestName: "Cofre de la Hermandad",
+      rarity: "filler",
+      rewardTitle: "Bizcochuelo casero",
+      description: "Por que aunque la plata falte el amor sobra ;)",
+      closedImageSrc: "/epic_c.png",
+      openedImageSrc: "/epic_a.png",
+      claimedFrom: "Sofi",
+      rewardImageSrc: "/hermanitos.jpeg"
+  },
+];

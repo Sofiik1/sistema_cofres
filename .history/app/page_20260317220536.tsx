@@ -144,10 +144,10 @@ export default function Page() {
   openAudioRef.current = new Audio("/opening.mp3");
   hoverAudioRef.current = new Audio("/hover.mp3");
   revealAudioRef.current = new Audio("/recompensa.mp3");
-  musicAudioRef.current = new Audio("/ambiente.mp3");
+  musicAudioRef.current = new Audio("/music/fondo.mp3");
 
   if (openAudioRef.current) openAudioRef.current.volume = 0.6;
-  if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.14;
+  if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.18;
   if (revealAudioRef.current) revealAudioRef.current.volume = 0.7;
 
   if (musicAudioRef.current) {
@@ -178,19 +178,6 @@ export default function Page() {
   setShowNewChestPopup(true);
   setLastPopupDate(todayKey);
 }, [stage, elapsedDays, canOpenToday, lastPopupDate, todayKey]);
-
-useEffect(() => {
-  const music = musicAudioRef.current;
-  if (!music) return;
-
-  if (stage === "game" && musicOn) {
-    music.play().catch((err) => {
-      console.log("No se pudo reproducir la música ambiente:", err);
-    });
-  } else {
-    music.pause();
-  }
-}, [stage, musicOn]);
 
   async function unlockAudio() {
   if (audioUnlocked) return;
@@ -262,15 +249,13 @@ useEffect(() => {
   }
 
   async function openGame() {
-  await unlockAudio();
   setStage("game");
 
-  const music = musicAudioRef.current;
-  if (music && musicOn) {
-    music.currentTime = 0;
-    music.play().catch((err) => {
-      console.log("No se pudo reproducir la música ambiente:", err);
-    });
+  await unlockAudio();
+
+  if (musicOn && musicAudioRef.current) {
+    musicAudioRef.current.currentTime = 0;
+    musicAudioRef.current.play().catch(() => {});
   }
 }
 
