@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import RewardCard from "./components/rewardcard";
+import RewardCard from "./components/page";
 import { CHESTS } from "./data/chest";
 import type { ChestItem } from "./types/chest";
 import NewChestPopup from "./popup/page";
