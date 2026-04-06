@@ -78,30 +78,26 @@ export default function Page() {
 
   const maxAllowedOpened = Math.max(0, Math.min(TOTAL_CHESTS, elapsedDays + 1));
 
-  const TWELVE_HOURS = 12 * 60 * 60 * 1000;
-
-  const canOpenNow =
-    (!lastOpenTime || Date.now() - lastOpenTime >= TWELVE_HOURS) &&
-    openedChests.length < maxAllowedOpened;
+  const canOpenToday =
+    lastOpenDate !== todayKey && openedChests.length < maxAllowedOpened;
 
   const remainingToday = useMemo(() => {
     if (elapsedDays < 0) return 0;
-    if (lastOpenTime === null) return 1;
+    if (lastOpenDate === todayKey) return 0;
     return Math.max(0, Math.min(1, maxAllowedOpened - openedChests.length));
-  }, [elapsedDays, lastOpenTime, maxAllowedOpened, openedChests.length]);
+  }, [elapsedDays, lastOpenDate, maxAllowedOpened, openedChests.length, todayKey]);
 
   useEffect(() => {
     const savedName = localStorage.getItem("birthday_name");
     const savedOpened = localStorage.getItem("birthday_opened_chests");
-    const savedLastOpen = localStorage.getItem("birthday_last_open_time");
+    const savedLastOpen = localStorage.getItem("birthday_last_open_date");
     const savedStage = localStorage.getItem("birthday_stage");
     const savedPopupDate = localStorage.getItem("birthday_last_popup_date");
     if (savedPopupDate) setLastPopupDate(savedPopupDate);
 
     if (savedName) setName(savedName);
     if (savedOpened) setOpenedChests(JSON.parse(savedOpened));
-
-    if (savedLastOpen) setLastOpenTime(Number(savedLastOpen));
+    if (savedLastOpen) setLastOpenDate(savedLastOpen);
     if (
       savedStage === "security" ||
       savedStage === "intro" ||
@@ -120,10 +116,10 @@ export default function Page() {
   }, [openedChests]);
 
   useEffect(() => {
-    if (lastOpenTime) {
-      localStorage.setItem("birthday_last_open_time", String(lastOpenTime));
+    if (lastOpenDate) {
+      localStorage.setItem("birthday_last_open_date", lastOpenDate);
     }
-  }, [lastOpenTime]);
+  }, [lastOpenDate]);
 
   useEffect(() => {
     localStorage.setItem("birthday_stage", stage);
@@ -176,12 +172,12 @@ export default function Page() {
   useEffect(() => {
   if (stage !== "game") return;
   if (elapsedDays < 0) return;
-  if (!canOpenNow) return;
+  if (!canOpenToday) return;
   if (lastPopupDate === todayKey) return;
 
   setShowNewChestPopup(true);
   setLastPopupDate(todayKey);
-}, [stage, elapsedDays, canOpenNow, lastPopupDate, todayKey]);
+}, [stage, elapsedDays, canOpenToday, lastPopupDate, todayKey]);
 
 useEffect(() => {
   const music = musicAudioRef.current;
@@ -290,7 +286,7 @@ useEffect(() => {
       return;
     }
 
-    if (!canOpenNow) {
+    if (!canOpenToday) {
       alert("Hoy ya abriste tu cofre del día. Mañana podrás abrir otro.");
       return;
     }
@@ -298,7 +294,7 @@ useEffect(() => {
     playOpenSound();
 
     setOpenedChests((prev) => [...prev, chest.id]);
-    setLastOpenTime(Date.now());
+    setLastOpenDate(todayKey);
 
     setTimeout(() => {
       setSelectedChest(chest);
@@ -418,9 +414,9 @@ useEffect(() => {
                 </div>
 
                 <div className="heroStat countdownBox">
-                  <span>{canOpenNow ? "Estado" : "Próximo cofre en"}</span>
+                  <span>{canOpenToday ? "Estado" : "Próximo cofre en"}</span>
                   <strong>
-                    {canOpenNow
+                    {canOpenToday
                       ? "Disponible"
                       : `${pad(countdown.hours)}:${pad(countdown.minutes)}:${pad(
                           countdown.seconds
@@ -437,7 +433,7 @@ useEffect(() => {
                     autoHideMs={5000}
                   />
             <section className="fantasyMessage card">
-              {canOpenNow ? (
+              {canOpenToday ? (
                 <p>
                   El santuario está despierto. <strong>Elegí tu cofre de hoy</strong>.
                 </p>
