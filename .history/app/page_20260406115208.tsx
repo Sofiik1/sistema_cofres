@@ -57,7 +57,7 @@ export default function Page() {
   const [stage, setStage] = useState<Stage>("name");
   const [name, setName] = useState("");
   const [securityAnswer, setSecurityAnswer] = useState("");
-  const [openedChests, setOpenedChests] = useState<number[]>([]);
+  const [openedChests, setOpenedChests] = useState<number[]>([5, 6, 16, 17, 18]);
   const [lastOpenTime, setLastOpenTime] = useState<number | null>(null);
   const [selectedChest, setSelectedChest] = useState<ChestItem | null>(null);
   const [shakeError, setShakeError] = useState(false);
