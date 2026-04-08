@@ -12,7 +12,7 @@ export const CHESTS: ChestItem[] = [
     rewardImageSrc: "/study.png",
     claimedFrom: "Sofi",
   },
-  /*
+  
   {
       id: 2,
       chestName: "Cofre del Rey",
@@ -23,7 +23,7 @@ export const CHESTS: ChestItem[] = [
       claimedFrom: "Sofi",
       rewardImageSrc: "/sueño.png"
   },
-   */
+   
   {
       id: 3,
       chestName: "Cofre Recargado",
@@ -77,7 +77,7 @@ export const CHESTS: ChestItem[] = [
       rewardImageSrc: "/skin.png"
   },
   
-  /*
+  
   {
       id: 8,
       chestName: "Cofre de la felicidad",
@@ -109,7 +109,7 @@ export const CHESTS: ChestItem[] = [
       claimedFrom: "Sofi",
       rewardImageSrc: "/skin.png"
   },
-  */
+  
   {
       id: 12,
       chestName: "Cofre de la Batalla",
@@ -120,7 +120,7 @@ export const CHESTS: ChestItem[] = [
       claimedFrom: "Papa",
       rewardImageSrc: "/cool.png"
   },
-  /*
+  
   {
       id: 13,
       chestName: "Cofre de la Fortuna",
@@ -141,7 +141,7 @@ export const CHESTS: ChestItem[] = [
       claimedFrom: "Sofi",
       rewardImageSrc: "/cool.png"
   },
-  */
+  
   {
       id: 15,
       chestName: "Cofre de la Amistad",
