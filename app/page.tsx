@@ -72,7 +72,7 @@ export default function Page() {
   const openAudioRef = useRef<HTMLAudioElement | null>(null);
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
   const revealAudioRef = useRef<HTMLAudioElement | null>(null);
-  const ALWAYS_OPENED_CHESTS = [1, 4, 5, 6, 12, 16, 17, 18];
+  const ALWAYS_OPENED_CHESTS = [1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18];
   const todayKey = getTodayKey();
   const elapsedDays = daysSinceStart(START_DATE);
 

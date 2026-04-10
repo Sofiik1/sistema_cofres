@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import RewardCard from "./rewardcard/page";
+import RewardCard from "./components/rewardcard";
 import { CHESTS } from "./data/chest";
 import type { ChestItem } from "./types/chest";
+import NewChestPopup from "./popup/page";
 
 type Stage = "name" | "security" | "intro" | "game";
 
@@ -57,39 +58,57 @@ export default function Page() {
   const [name, setName] = useState("");
   const [securityAnswer, setSecurityAnswer] = useState("");
   const [openedChests, setOpenedChests] = useState<number[]>([]);
-  const [lastOpenDate, setLastOpenDate] = useState<string | null>(null);
+  const [lastOpenTime, setLastOpenTime] = useState<number | null>(null);
   const [selectedChest, setSelectedChest] = useState<ChestItem | null>(null);
   const [shakeError, setShakeError] = useState(false);
   const [introVisible, setIntroVisible] = useState(false);
   const [countdown, setCountdown] = useState(getTimeUntilNextDay());
-
+  const [showNewChestPopup, setShowNewChestPopup] = useState(false);
+  const [lastPopupDate, setLastPopupDate] = useState<string | null>(null);
+  const musicAudioRef = useRef<HTMLAudioElement | null>(null);
+  const lastHoverPlayedAtRef = useRef(0);
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
+  const [musicOn, setMusicOn] = useState(true);
   const openAudioRef = useRef<HTMLAudioElement | null>(null);
   const hoverAudioRef = useRef<HTMLAudioElement | null>(null);
   const revealAudioRef = useRef<HTMLAudioElement | null>(null);
-
+  const ALWAYS_OPENED_CHESTS = [1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 15, 16, 17, 18];
   const todayKey = getTodayKey();
   const elapsedDays = daysSinceStart(START_DATE);
 
   const maxAllowedOpened = Math.max(0, Math.min(TOTAL_CHESTS, elapsedDays + 1));
 
-  const canOpenToday =
-    lastOpenDate !== todayKey && openedChests.length < maxAllowedOpened;
+  const TWELVE_HOURS = 12 * 60 * 60 * 1000;
+
+  const canOpenNow =
+    (!lastOpenTime || Date.now() - lastOpenTime >= TWELVE_HOURS) &&
+    openedChests.length < maxAllowedOpened;
 
   const remainingToday = useMemo(() => {
     if (elapsedDays < 0) return 0;
-    if (lastOpenDate === todayKey) return 0;
+    if (lastOpenTime === null) return 1;
     return Math.max(0, Math.min(1, maxAllowedOpened - openedChests.length));
-  }, [elapsedDays, lastOpenDate, maxAllowedOpened, openedChests.length, todayKey]);
+  }, [elapsedDays, lastOpenTime, maxAllowedOpened, openedChests.length]);
 
   useEffect(() => {
     const savedName = localStorage.getItem("birthday_name");
     const savedOpened = localStorage.getItem("birthday_opened_chests");
-    const savedLastOpen = localStorage.getItem("birthday_last_open_date");
+    const savedLastOpen = localStorage.getItem("birthday_last_open_time");
     const savedStage = localStorage.getItem("birthday_stage");
+    const savedPopupDate = localStorage.getItem("birthday_last_popup_date");
+    if (savedPopupDate) setLastPopupDate(savedPopupDate);
 
     if (savedName) setName(savedName);
     if (savedOpened) setOpenedChests(JSON.parse(savedOpened));
-    if (savedLastOpen) setLastOpenDate(savedLastOpen);
+    if (savedOpened) {
+      const parsed = JSON.parse(savedOpened) as number[];
+      const merged = [...new Set([...ALWAYS_OPENED_CHESTS, ...parsed])];
+      setOpenedChests(merged);
+    } else {
+      setOpenedChests(ALWAYS_OPENED_CHESTS);
+    }
+
+    if (savedLastOpen) setLastOpenTime(Number(savedLastOpen));
     if (
       savedStage === "security" ||
       savedStage === "intro" ||
@@ -108,10 +127,10 @@ export default function Page() {
   }, [openedChests]);
 
   useEffect(() => {
-    if (lastOpenDate) {
-      localStorage.setItem("birthday_last_open_date", lastOpenDate);
+    if (lastOpenTime) {
+      localStorage.setItem("birthday_last_open_time", String(lastOpenTime));
     }
-  }, [lastOpenDate]);
+  }, [lastOpenTime]);
 
   useEffect(() => {
     localStorage.setItem("birthday_stage", stage);
@@ -133,14 +152,81 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    openAudioRef.current = new Audio("/sounds/open.mp3");
-    hoverAudioRef.current = new Audio("/sounds/hover.mp3");
-    revealAudioRef.current = new Audio("/sounds/reveal.mp3");
+  openAudioRef.current = new Audio("/opening.mp3");
+  hoverAudioRef.current = new Audio("/hover.mp3");
+  revealAudioRef.current = new Audio("/recompensa.mp3");
+  musicAudioRef.current = new Audio("/ambiente.mp3");
 
-    if (openAudioRef.current) openAudioRef.current.volume = 0.6;
-    if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.25;
-    if (revealAudioRef.current) revealAudioRef.current.volume = 0.7;
-  }, []);
+  if (openAudioRef.current) openAudioRef.current.volume = 0.6;
+  if (hoverAudioRef.current) hoverAudioRef.current.volume = 0.14;
+  if (revealAudioRef.current) revealAudioRef.current.volume = 0.7;
+
+  if (musicAudioRef.current) {
+    musicAudioRef.current.volume = 0.28;
+    musicAudioRef.current.loop = true;
+  }
+
+  return () => {
+    openAudioRef.current?.pause();
+    hoverAudioRef.current?.pause();
+    revealAudioRef.current?.pause();
+    musicAudioRef.current?.pause();
+  };
+}, []);
+
+  useEffect(() => {
+  if (lastPopupDate) {
+    localStorage.setItem("birthday_last_popup_date", lastPopupDate);
+  }
+}, [lastPopupDate]);
+
+  useEffect(() => {
+  if (stage !== "game") return;
+  if (elapsedDays < 0) return;
+  if (!canOpenNow) return;
+  if (lastPopupDate === todayKey) return;
+
+  setShowNewChestPopup(true);
+  setLastPopupDate(todayKey);
+}, [stage, elapsedDays, canOpenNow, lastPopupDate, todayKey]);
+
+useEffect(() => {
+  const music = musicAudioRef.current;
+  if (!music) return;
+
+  if (stage === "game" && musicOn) {
+    music.play().catch((err) => {
+      console.log("No se pudo reproducir la música ambiente:", err);
+    });
+  } else {
+    music.pause();
+  }
+}, [stage, musicOn]);
+
+  async function unlockAudio() {
+  if (audioUnlocked) return;
+
+  try {
+    const audios = [
+      openAudioRef.current,
+      hoverAudioRef.current,
+      revealAudioRef.current,
+      musicAudioRef.current,
+    ].filter(Boolean) as HTMLAudioElement[];
+
+    for (const audio of audios) {
+      audio.muted = true;
+      await audio.play().catch(() => {});
+      audio.pause();
+      audio.currentTime = 0;
+      audio.muted = false;
+    }
+
+    setAudioUnlocked(true);
+  } catch {
+    // no-op
+  }
+}
 
   function playHoverSound() {
     const audio = hoverAudioRef.current;
@@ -186,9 +272,18 @@ export default function Page() {
     setStage("intro");
   }
 
-  function openGame() {
-    setStage("game");
+  async function openGame() {
+  await unlockAudio();
+  setStage("game");
+
+  const music = musicAudioRef.current;
+  if (music && musicOn) {
+    music.currentTime = 0;
+    music.play().catch((err) => {
+      console.log("No se pudo reproducir la música ambiente:", err);
+    });
   }
+}
 
   function handleOpenChest(chest: ChestItem) {
     if (openedChests.includes(chest.id)) {
@@ -202,7 +297,7 @@ export default function Page() {
       return;
     }
 
-    if (!canOpenToday) {
+    if (!canOpenNow) {
       alert("Hoy ya abriste tu cofre del día. Mañana podrás abrir otro.");
       return;
     }
@@ -210,7 +305,7 @@ export default function Page() {
     playOpenSound();
 
     setOpenedChests((prev) => [...prev, chest.id]);
-    setLastOpenDate(todayKey);
+    setLastOpenTime(Date.now());
 
     setTimeout(() => {
       setSelectedChest(chest);
@@ -226,11 +321,7 @@ export default function Page() {
       <section className="shell">
         {stage === "name" && (
           <div className="card centerCard">
-            <div className="eyebrow">MODO CUMPLEAÑOS</div>
             <h1>Ingresá tu nombre</h1>
-            <p className="muted">
-              Antes de empezar esta aventura, el jugador debe identificarse.
-            </p>
 
             <div className={`formBlock ${shakeError ? "shake" : ""}`}>
               <input
@@ -249,10 +340,7 @@ export default function Page() {
         {stage === "security" && (
           <div className="card centerCard">
             <div className="eyebrow">CONTROL DE SEGURIDAD</div>
-            <h1>Verificación gamer</h1>
-            <p className="muted">
-              Solo los verdaderos elegidos pueden entrar al reino de los cofres.
-            </p>
+            <h1>Verificamos que seas un humano</h1>
 
             <div className={`securityBox ${shakeError ? "shake" : ""}`}>
               <div className="mathQuestion">¿Cuánto es 11 + 11?</div>
@@ -277,7 +365,7 @@ export default function Page() {
               Sí, es <strong>22</strong>...
             </p>
             <p className="muted bigger">
-              Como los <strong>22 días</strong> que faltan para tu cumpleaños.
+              No es casualidad... son los <strong>22 años</strong> que estás por cumplir.
             </p>
 
             <div className="introText">
@@ -307,7 +395,7 @@ export default function Page() {
               <div className="heroLeft">
                 <div className="playerPortraitFrame">
                   <img
-                    src="/player/avatar.png"
+                    src="/avatar.png"
                     alt="Jugador"
                     className="playerPortrait"
                   />
@@ -315,12 +403,11 @@ export default function Page() {
                 </div>
 
                 <div className="heroText">
-                  <div className="eyebrow">EL ELEGIDO</div>
-                  <h1 className="fantasyTitle">Los 22 Cofres del Destino</h1>
+                  <div className="eyebrow">SOS EL ELEGIDO</div>
+                  <h1 className="fantasyTitle">Los Cofres del Destino</h1>
                   <p className="fantasySubtitle">
                     Cada día, solo uno. Elegí sabiamente.
                   </p>
-                  <h2 className="playerName">{name || "Jugador"}</h2>
                 </div>
               </div>
 
@@ -338,9 +425,9 @@ export default function Page() {
                 </div>
 
                 <div className="heroStat countdownBox">
-                  <span>{canOpenToday ? "Estado" : "Próximo cofre en"}</span>
+                  <span>{canOpenNow ? "Estado" : "Próximo cofre en"}</span>
                   <strong>
-                    {canOpenToday
+                    {canOpenNow
                       ? "Disponible"
                       : `${pad(countdown.hours)}:${pad(countdown.minutes)}:${pad(
                           countdown.seconds
@@ -349,9 +436,15 @@ export default function Page() {
                 </div>
               </div>
             </section>
-
+                      <NewChestPopup
+                    isVisible={showNewChestPopup}
+                    onClose={() => setShowNewChestPopup(false)}
+                    playerName={name || "Jugador"}
+                    soundSrc="/new.mp3"
+                    autoHideMs={5000}
+                  />
             <section className="fantasyMessage card">
-              {canOpenToday ? (
+              {canOpenNow ? (
                 <p>
                   El santuario está despierto. <strong>Elegí tu cofre de hoy</strong>.
                 </p>
